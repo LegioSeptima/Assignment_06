@@ -1,0 +1,116 @@
+---
+title: "Assignment_06"
+author: "Steven Tran"
+date: "March 21, 2018"
+output: pdf_document
+---
+```{R}
+# Libraries
+library(ggplot2)
+library(ggmap)
+library(tidyverse)
+
+# First Basic Map of Bude
+gc1 <- geocode("bude, western england")
+
+map <- get_map(gc1, zoom = 14)
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc1, color = "red", size = 3
+  )
+```
+
+```{R}
+# Road Map of Bude
+map.r <- get_map("Bude", maptype = "road", zoom = 12)
+ggmap(map.r)
+```
+
+```{R}
+# Water Map of Bude
+map.w <- get_map("Bude", maptype = "watercolor", zoom = 12)
+ggmap(map.w)
+```
+
+```{R}
+# Map with Cooklets Beach
+gc2 <- geocode("crooklets beach")
+
+ggmap(map) + 
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc2, color = "blue", size = 3
+  )
+```
+
+```{R}
+# Map with Summerleaze Beach
+ gc3 <- geocode("summerleaze beach") 
+ ggmap(map) + 
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc3, color = "blue", size = 3
+  )
+```
+
+```{R}
+# Map with Castle Bude
+gc4 <- geocode("castle bude")
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc4, color = "orange", size = 3
+  )
+```
+
+```{R}
+# Map with Bude Tennis Club
+gc5 <- geocode("bude tennis club")
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc5, color = "green", size = 3
+  )
+```
+
+```{R}
+# Map with the Bude North Cornwall Cricket Grounds
+gc6 <- geocode("bude north cornwall cricket grounds")
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc6, color = "brown", size = 3
+  )
+```
+
+```{R}
+# Map with The Brendon Arms
+gc7 <- geocode("the brendon arms")
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc7, color = "black", size = 3
+  )
+```
+
+```{R}
+# Map with Route from Cricket Grounds to The Brendon Arms
+r <- route(from = "bude north cornwall cricket grounds", to = "the brendon arms", mode = "walking", structure = "legs", output = "simple", alternatives = FALSE, units = "metric", messaging = FALSE,
+  urlonly = FALSE, override_limit = FALSE, ext = "com", inject = "")
+ggmap(map) +
+  geom_path(
+    aes(x = startLon, y = startLat),
+    data = r, color = "red", size = 2
+  )+
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc6, color = "brown", size = 3
+  )+
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc7, color = "black", size = 3
+  )
+```
+
+
