@@ -10,8 +10,11 @@ library(ggplot2)
 library(ggmap)
 library(tidyverse)
 
+# Load Data and Values (Alternatively, comment this out and erase all double hashtags. May encounter OVER_QUERY_LIMIT Error)
+load("myEnvironment.RData")
+
 # First Basic Map of Bude
-gc1 <- geocode("bude, western england")
+## gc1 <- geocode("bude, western england")
 
 map <- get_map(gc1, zoom = 14)
 ggmap(map) +
@@ -21,42 +24,52 @@ ggmap(map) +
   )
 ```
 
+Here is Bude, formerly known as Bude Haven, located in North Cornwall, England. As a seaside resort town, Bude contains beaches with several other recreational areas such as tennis courts, cricket courts, etc. 
+
 ```{R}
 # Road Map of Bude
-map.r <- get_map("Bude", maptype = "road", zoom = 12)
+## map.r <- get_map("Bude", maptype = "road", zoom = 12)
 ggmap(map.r)
 ```
 
+This is a road map of Bude. As you can see, there are both plenty of urban and green areas right next to the ocean. 
+
 ```{R}
 # Water Map of Bude
-map.w <- get_map("Bude", maptype = "watercolor", zoom = 12)
+## map.w <- get_map("Bude", maptype = "watercolor", zoom = 12)
 ggmap(map.w)
 ```
 
-```{R}
-# Map with Cooklets Beach
-gc2 <- geocode("crooklets beach")
+Here is a watercolor map of Bude. It is simple but beautiful.   
 
-ggmap(map) + 
+```{R}
+# Map with Crooklets Beach
+## gc2 <- geocode("crooklets beach")
+
+ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
     data = gc2, color = "blue", size = 3
   )
 ```
 
+Here is Crooklets Beach, a long beautiful beach with a small cafeteria and a small play area for children. Your dog will also love this place should you decide to come here for a walk. 
+
 ```{R}
 # Map with Summerleaze Beach
- gc3 <- geocode("summerleaze beach") 
- ggmap(map) + 
+## gc3 <- geocode("summerleaze beach")
+ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
     data = gc3, color = "blue", size = 3
   )
 ```
 
+Not to far from Crooklets Beach is Summerleaze Beach. With beach huts and ample parking, Summerleaze Beach attracts both families and surfers. Whether to play or sit and relax, you won't be disappointed. 
+
 ```{R}
 # Map with Castle Bude
-gc4 <- geocode("castle bude")
+## gc4 <- geocode("castle bude")
 ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
@@ -64,9 +77,11 @@ ggmap(map) +
   )
 ```
 
+Built in 1830, this scenic castle and wedding venue features a history museum, art gallery & cafe.
+
 ```{R}
 # Map with Bude Tennis Club
-gc5 <- geocode("bude tennis club")
+## gc5 <- geocode("bude tennis club")
 ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
@@ -74,9 +89,11 @@ ggmap(map) +
   )
 ```
 
+Behind the Bude Methodist Church and in the Bude Haven Recreational Ground is the Bude Tennis Club, perfect for a round of tennis or watching others play and you sit in awe. 
+
 ```{R}
 # Map with the Bude North Cornwall Cricket Grounds
-gc6 <- geocode("bude north cornwall cricket grounds")
+## gc6 <- geocode("bude north cornwall cricket grounds")
 ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
@@ -84,9 +101,11 @@ ggmap(map) +
   )
 ```
 
+If tennis is not your sport, perhaps cricket is. The Bude North Cornwall Cricket Grounds is located near Crooklets Beach, perfect for cooling off after a heated game of cricket. 
+
 ```{R}
 # Map with The Brendon Arms
-gc7 <- geocode("the brendon arms")
+## gc7 <- geocode("the brendon arms")
 ggmap(map) +
   geom_point(
     aes(x = lon, y = lat),
@@ -94,19 +113,22 @@ ggmap(map) +
   )
 ```
 
+Started in 1872, the Brendon Arms is Bude's most well known inn. With a bar and overlooking the beach, this is a great place to sleep, eat, and drink.  
+
 ```{R}
 # Map with Route from Cricket Grounds to The Brendon Arms
-r <- route(from = "bude north cornwall cricket grounds", to = "the brendon arms", mode = "walking", structure = "legs", output = "simple", alternatives = FALSE, units = "metric", messaging = FALSE,
-  urlonly = FALSE, override_limit = FALSE, ext = "com", inject = "")
+## r <- route(
+##  from = "bude north cornwall cricket grounds", to = "the brendon arms", mode = "walking", ##structure = "legs", output = "simple"
+##)
 ggmap(map) +
   geom_path(
     aes(x = startLon, y = startLat),
     data = r, color = "red", size = 2
-  )+
+  ) +
   geom_point(
     aes(x = lon, y = lat),
     data = gc6, color = "brown", size = 3
-  )+
+  ) +
   geom_point(
     aes(x = lon, y = lat),
     data = gc7, color = "black", size = 3
