@@ -4,15 +4,18 @@ author: "Steven Tran"
 date: "March 21, 2018"
 output: pdf_document
 ---
-```{R}
+```{R fig.align = "center"}
 # Libraries
 library(ggplot2)
 library(ggmap)
-library(tidyverse)
+suppressMessages(library(tidyverse))
 library(jpeg)
 
 # Load Data and Values (Alternatively, comment this out and erase all double hashtags. May encounter OVER_QUERY_LIMIT Error)
 load("myEnvironment.RData")
+
+# Load data and values for hotels
+load("Hotel.RData")
 
 # First Basic Map of Bude
 ## gc1 <- geocode("bude, western england")
@@ -27,7 +30,7 @@ ggmap(map) +
 
 Here is Bude, formerly known as Bude Haven, located in North Cornwall, England. As a seaside resort town, Bude contains beaches with several other recreational areas such as tennis courts, cricket courts, etc. 
 
-```{R}
+```{R fig.align = "center"}
 # Road Map of Bude
 ## map.r <- get_map("Bude", maptype = "road", zoom = 12)
 ggmap(map.r)
@@ -35,7 +38,7 @@ ggmap(map.r)
 
 This is a road map of Bude. As you can see, there are both plenty of urban and green areas right next to the ocean. 
 
-```{R}
+```{R fig.align = "center"}
 # Water Map of Bude
 ## map.w <- get_map("Bude", maptype = "watercolor", zoom = 12)
 ggmap(map.w)
@@ -43,7 +46,7 @@ ggmap(map.w)
 
 Here is a watercolor map of Bude. It is simple but beautiful.   
 
-```{R}
+```{R fig.align = "center"}
 # Map with Crooklets Beach
 ## gc2 <- geocode("crooklets beach")
 
@@ -58,7 +61,7 @@ rasterImage(readJPEG("Crooklets Beach.jpg"), 0, 0, 10.5, 10.5)
 
 Here is Crooklets Beach, a long beautiful beach with a small cafeteria and a small play area for children. Your dog will also love this place should you decide to come here for a walk. 
 
-```{R}
+```{R fig.align = "center"}
 # Map with Summerleaze Beach
 ## gc3 <- geocode("summerleaze beach")
 ggmap(map) +
@@ -72,7 +75,7 @@ rasterImage(readJPEG("Summerleaze Beach.jpg"), 0, 0, 10.5, 10.5)
 
 Not to far from Crooklets Beach is Summerleaze Beach. With beach huts and ample parking, Summerleaze Beach attracts both families and surfers. Whether to play or sit and relax, you won't be disappointed. 
 
-```{R}
+```{R fig.align = "center"}
 # Map with Castle Bude
 ## gc4 <- geocode("castle bude")
 ggmap(map) +
@@ -86,7 +89,7 @@ rasterImage(readJPEG("The Castle Bude.jpg"), 0, 0, 10.5, 10.5)
 
 Built in 1830, this scenic castle and wedding venue features a history museum, art gallery & cafe.
 
-```{R}
+```{R fig.align = "center"}
 # Map with Bude Tennis Club
 ## gc5 <- geocode("bude tennis club")
 ggmap(map) +
@@ -100,7 +103,7 @@ rasterImage(readJPEG("Bude Tennis Club.jpeg"), 0, 0, 10.5, 10.5)
 
 Behind the Bude Methodist Church and in the Bude Haven Recreational Ground is the Bude Tennis Club, perfect for a round of tennis or watching others play and you sit in awe. 
 
-```{R}
+```{R fig.align = "center"}
 # Map with the Bude North Cornwall Cricket Grounds
 ## gc6 <- geocode("bude north cornwall cricket grounds")
 ggmap(map) +
@@ -114,7 +117,7 @@ rasterImage(readJPEG("Bude North Cornwall Cricket Grounds.jpg"), 0, 0, 10.5, 10.
 
 If tennis is not your sport, perhaps cricket is. The Bude North Cornwall Cricket Grounds is located near Crooklets Beach, perfect for cooling off after a heated game of cricket. 
 
-```{R}
+```{R fig.align = "center"}
 # Map with The Brendon Arms
 ## gc7 <- geocode("the brendon arms")
 ggmap(map) +
@@ -128,7 +131,7 @@ rasterImage(readJPEG("The Brendon Arms.jpg"), 0, 0, 10.5, 10.5)
 
 Started in 1872, the Brendon Arms is Bude's most well known inn. With a bar and overlooking the beach, this is a great place to sleep, eat, and drink.  
 
-```{R}
+```{R fig.align = "center"}
 # Map with Route from Cricket Grounds to The Brendon Arms
 ## r <- route(
 ##  from = "bude north cornwall cricket grounds", to = "the brendon arms", mode = "walking", ##structure = "legs", output = "simple"
@@ -149,3 +152,50 @@ ggmap(map) +
 ```
 
 
+```{r fig.align = "center"}
+# Map The Falcon Hotel
+# gc.falcon <- geocode("Breakwater Rd, Bude EX23 8SD, UK") # The Falcon Hotel
+
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc.falcon, color = "blue", size = 3
+  )
+
+plot(1:10, ty = "n", xlab = "", ylab = "", yaxt = "n", xaxt = "n")
+rasterImage(readJPEG("falcon.jpg"), 0, 0, 10.5, 10.5)
+```
+
+The Falcon Hotel is a stunning 16th Century coaching inn that is situated in the pride of Uppingham’s historic Market Place. The hotel is just four miles from the shores of Rutland Water, in the heart of the natural splendours of Rutland. The hotel has a superb traditional restaurant, a comfortable brasserie lounge, a cosy bar offering traditional ales, and beautiful oak beamed private dining rooms.
+
+```{r fig.align = "center"}
+# Map Edgcumbe Hotel
+# gc.edgcumbe <- geocode("19 Summerleaze Cres, Bude EX23 8HJ, UK") # Edgcumbe Hotel
+
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc.edgcumbe, color = "blue", size = 3
+  )
+
+plot(1:10, ty = "n", xlab = "", ylab = "", yaxt = "n", xaxt = "n")
+rasterImage(readJPEG("edgcumbe.jpg"), 0, 0, 10.5, 10.5)
+```
+
+A boutique bed and breakfast run by a young and energetic family, the Edgcumbe offers chic seaside style with a relaxed and informal feel.
+
+```{r fig.align = "center"}
+# Map Atlantic House Hotel
+# gc.atlantic <- geocode("17-18 Summerleaze Cres, Bude EX23 8HJ, UK") # Atlantic House Hotel
+
+ggmap(map) +
+  geom_point(
+    aes(x = lon, y = lat),
+    data = gc.atlantic, color = "blue", size = 3
+  )
+
+plot(1:10, ty = "n", xlab = "", ylab = "", yaxt = "n", xaxt = "n")
+rasterImage(readJPEG("atlantic.jpg"), 0, 0, 10.5, 10.5)
+```
+
+Atlantic House is located in Bude, 26 miles from Padstow and 21 miles from Port Isaac. Guests can enjoy the on-site bar. Free private parking is available on site.
